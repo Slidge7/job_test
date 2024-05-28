@@ -42,7 +42,9 @@ const styles = StyleSheet.create({
     paddingVertical:5,
     borderBottomWidth:1,
     borderBottomColor:appColors.gray_200,
-    backgroundColor:appColors.white_100
+    backgroundColor:appColors.white_100,
+    //padding right to provide space for alphabetic nav
+    paddingRight:25
   },
   contactIcon: {
     borderRadius:50,
