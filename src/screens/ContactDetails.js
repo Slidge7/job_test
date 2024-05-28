@@ -1,12 +1,13 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from 'react';
+import Info from './detailsScreens/Info';
+
+
+
 
 const ContactDetails = () => {
-  return (
-    <View>
-      <Text>ContactDetails</Text>
-    </View>
-  )
-}
+return(
+  <Info />
+)
+};
 
-export default ContactDetails
+export default ContactDetails;
