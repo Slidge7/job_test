@@ -82,7 +82,7 @@ export const contactSlice = createSlice({
       .addCase(getcontacts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.contactsList = action.payload;
+        state.contactsList = action.payload.data;
       })
       .addCase(getcontacts.rejected, (state, action) => {
         state.isLoading = false;

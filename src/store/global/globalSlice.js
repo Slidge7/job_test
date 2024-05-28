@@ -57,18 +57,15 @@ export const globalSlice = createSlice({
     builder
       .addCase(getSessionInfo.pending, (state) => {
         state.isLoading = true;
-        console.log('loading')
       })
       .addCase(getSessionInfo.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        console.log('action', action.payload)
         state.sessionInfo = action.payload;
       })
       .addCase(getSessionInfo.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        console.log('action', action.payload)
         state.message = action.payload;
       })
       .addCase(getVolumetrie.pending, (state) => {
