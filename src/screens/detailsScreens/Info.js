@@ -85,7 +85,6 @@ const Info = () => {
   
     return (
       <>
-        <Header />
         <ScrollView style={styles.container}>
           <LabledInfo label={'Nom'} value={contactData.contact.nom} />
           <LabledInfo label={'Prénom'} value={contactData.contact.prenom} />
