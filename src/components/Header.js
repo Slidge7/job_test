@@ -5,8 +5,9 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  Linking
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {appColors} from '../constants/appColors';
 import Icon2 from 'react-native-vector-icons/Entypo';
 
@@ -15,26 +16,49 @@ import Icon3 from 'react-native-vector-icons/Octicons';
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import GradientCard from './GradientCard';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import { getSessionInfo } from '../store/global/globalSlice';
+import { searchContacts } from '../store/contacts/contactSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
+
 
 
 
 const Search = () => {
   const dispatch = useDispatch();
+  const query = useSelector(state => state.contact.searchQuery);
+  const errMessage = useSelector(state => state.contact.message);
+  const [searchQuery, setSearchQuery] = useState(query);
 
-  const search = query => {};
-  const [searchQuery, setSearchQuery] = useState();
+  // useEffect(()=>{
+  //   setSearchQuery(query)
+  // },[query])
+  
+  const handleSearch = async () => {
+    try {
+      console.log(searchQuery);
+      if (searchQuery) {
+        const resultAction = await dispatch(searchContacts(searchQuery));
+        const searchResult = unwrapResult(resultAction);
+        
+        console.log('Search successful:', searchResult);
+      }
+    } catch (error) {
+      console.error('Search failed:', error);
+      alert(errMessage || 'Something went wrong');
+    }
+  };
   return (
     <View style={styles.searchBar}>
       <TextInput
         editable
         placeholder="Rechercher"
         placeholderTextColor={appColors.gray_600}
-        onChangeText={{}}
+        onChangeText={(text)=>{setSearchQuery(text)}}
         value={searchQuery}
         style={styles.searchInput}
       />
-      <TouchableOpacity style={styles.searchBtn}>
+      <TouchableOpacity onPress={()=>{handleSearch()}} style={styles.searchBtn}>
         <Icon name="search" size={15} color={appColors.white_100} />
       </TouchableOpacity>
     </View>
@@ -66,6 +90,19 @@ const HeaderRight = ({navigation}) => {
 };
 
 const HomeHeader = () => {
+  const sessionInfo = useSelector(state => state.global.sessionInfo);
+  const dispatch = useDispatch();
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(getSessionInfo());
+    };
+
+    if (Object.keys(sessionInfo).length === 0) {
+      fetchData();
+    }
+  }, []);
   return (
     <>
       <View style={styles.row}>
@@ -74,9 +111,10 @@ const HomeHeader = () => {
           style={{width: 60, height: 60, borderRadius: 50, marginRight: 10}}
         />
         <View>
-          <Text style={styles.userName}>Bonjour User</Text>
-          <Text style={styles.clientName}>HOP ONLINE</Text>
+          <Text style={styles.userName}>Bonjour {sessionInfo.user.prenom}</Text>
+          <Text style={styles.clientName}>{sessionInfo.client.nom}</Text>
         </View>
+
       </View>
       <HeaderRight />
     </>
@@ -91,6 +129,17 @@ const ContactListHeader = ({navigation}) => {
   );
 };
 const ContactDetailsHeader = ({navigation}) => {
+  const contact = useSelector(state => state.contact.contact);
+  const contactData = contact.contact;
+  
+  const handleEmailPress = (email) => {
+    Linking.openURL(`mailto:${email}`);
+  };
+  
+  const handlePhonePress = (phoneNumber) => {
+    Linking.openURL(`tel:${phoneNumber}`);
+  };
+
   return (
     <View>
       <View style={[styles.headerRow,{marginBottom:10}]}>
@@ -106,6 +155,8 @@ const ContactDetailsHeader = ({navigation}) => {
         </View>
         <Text style={styles.headerText}>Modifier</Text>
       </View>
+      {contactData&&
+      
       <View style={styles.headerRow}>
       <View style={styles.row}>
         <Image
@@ -113,16 +164,16 @@ const ContactDetailsHeader = ({navigation}) => {
           style={{width: 70, height: 70, borderRadius: 50, marginRight: 10}}
         />
         <View>
-          <Text style={styles.contactName}>Mohamed BADDI</Text>
+          <Text style={styles.contactName}>{contactData.nom+' '+contactData.prenom}</Text>
           <Text style={styles.contactInfo}>HOP ONLINE</Text>
-          <Text style={styles.contactInfo}>mohammed@hoponline.co</Text>
-          <Text style={styles.contactInfo}>+212 6 26 448 815</Text>
+          <Text style={styles.contactInfo}>{contactData.e_mail}</Text>
+          <Text style={styles.contactInfo}>{contactData.telephone_mobile}</Text>
         </View>
       </View>
       <View style={styles.row}>
         <TouchableOpacity
           onPress={() => {
-            alert('not in test');
+            handleEmailPress(contactData.e_mail)
           }}>
           <Icon3
             name="mail"
@@ -132,13 +183,14 @@ const ContactDetailsHeader = ({navigation}) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('AppTest');
+            handlePhonePress(contactData.telephone_mobile)
           }}
           style={{marginLeft: 15}}>
           <Icon4 name="phone" size={35} color={appColors.white_100} />
         </TouchableOpacity>
       </View>
       </View>
+}
     </View>
   );
 };

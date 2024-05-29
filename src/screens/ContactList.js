@@ -11,6 +11,7 @@ import AlphabetNavigator from '../components/AlphabetNavigator';
 
 const ContactList = () => {
   const contactsList = useSelector(state => state.contact.contactsList);
+  const isLoading = useSelector(state => state.contact.isLoading);
   const [loading, setLoading] = useState(true);
   const flatListRef = useRef(null);
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const ContactList = () => {
     }
   }, []);
 
-  if (loading) {
+  if (isLoading || loading) {
     return <Loading />;
   }
 

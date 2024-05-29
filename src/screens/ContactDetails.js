@@ -83,7 +83,7 @@ function MyTabBar({state, descriptors, navigation}) {
             }}>
             <Icon
               name={route.icon}
-              size={20}
+              size={30}
               color={isFocused ? appColors.inverse_700 : appColors.white_100}
             />
 
