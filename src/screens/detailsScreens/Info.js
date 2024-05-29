@@ -13,9 +13,8 @@ import {getContactById} from '../../store/contacts/contactSlice';
 import Loading from '../../components/Loading';
 import {appColors} from '../../constants/appColors';
 import {useRoute} from '@react-navigation/native';
+import Icon from '../../constants/icons';
 
-import Icon3 from 'react-native-vector-icons/Octicons';
-import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const LabledInfo = ({label, value}) => {
   return (
@@ -103,7 +102,7 @@ const Info = () => {
               handleEmailPress(contactData.contact.e_mail);
             }}
             style={styles.icon}>
-            <Icon3 name="mail" size={20} color={appColors.white_100} />
+            <Icon type="Octicons" name="mail" size={20} color={appColors.white_100} />
           </TouchableOpacity>
           <CustomSwitch label={'Optin Mail'} />
         </View>
@@ -117,7 +116,7 @@ const Info = () => {
               handlePhonePress(contactData.contact.telephone_mobile);
             }}
             style={styles.icon}>
-            <Icon4 name="phone" size={20} color={appColors.white_100} />
+            <Icon type="MaterialCommunityIcons" name="phone" size={20} color={appColors.white_100} />
           </TouchableOpacity>
           <CustomSwitch label={'Optin SMS'} />
         </View>
@@ -131,7 +130,7 @@ const Info = () => {
               handlePhonePress(contactData.contact.telephone_fixe);
             }}
             style={styles.icon}>
-            <Icon4 name="phone" size={20} color={appColors.white_100} />
+            <Icon type="MaterialCommunityIcons" name="phone" size={20} color={appColors.white_100} />
           </TouchableOpacity>
           <View style={styles.switchContainer}></View>
         </View>

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import {Provider, useDispatch} from 'react-redux';
 import store from './store';
 import Home from './screens/Home';
-import AppTest from './screens/AppTest';
 import ContactList from './screens/ContactList';
 import ContactDetails from './screens/ContactDetails';
 import { appColors } from './constants/appColors';
@@ -51,7 +50,6 @@ const MainScreen = () => {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="ContactList" component={ContactList} />
           <Stack.Screen name="ContactDetails" component={ContactDetails} />
-          <Stack.Screen name="AppTest" component={AppTest} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

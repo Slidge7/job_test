@@ -1,8 +1,8 @@
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
 import React from 'react';
 import {appColors, uiColors} from '../constants/appColors';
 import { useNavigation } from '@react-navigation/native';
+import Icon from '../constants/icons';
 
 const ContactItem = ({contact}) => {
     const getStatusColor = (status) => {
@@ -17,7 +17,7 @@ const ContactItem = ({contact}) => {
     <TouchableOpacity onPress={()=>{navigation.navigate('ContactDetails',{contactId:contact.cle})}} style={styles.contactItem}>
         <View style={styles.row}>
       <View style={styles.contactIcon}>
-        <Icon name="user" color={appColors.white_100} size={25} />
+        <Icon type={'Entypo'} name="user" color={appColors.white_100} size={25} />
       </View>
       <View style={styles.contactInfo}>
         <Text style={styles.userName}>

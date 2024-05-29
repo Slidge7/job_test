@@ -5,6 +5,9 @@ import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Octicons from 'react-native-vector-icons/Octicons';
+
 
 const Icon = ({ type, name, color, size }) => {
   switch (type) {
@@ -20,6 +23,10 @@ const Icon = ({ type, name, color, size }) => {
       return <AntDesign name={name} color={color} size={size} />;
     case 'MaterialIcons':
       return <MaterialIcons name={name} color={color} size={size} />;
+    case 'Entypo':
+      return <Entypo name={name} color={color} size={size} />;
+    case 'Octicons':
+      return <Octicons name={name} color={color} size={size} />;
     default:
       return null; // or you can render a default icon
   }

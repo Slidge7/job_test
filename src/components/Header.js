@@ -9,17 +9,13 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {appColors} from '../constants/appColors';
-import Icon2 from 'react-native-vector-icons/Entypo';
-
-import Icon from 'react-native-vector-icons/Ionicons';
-import Icon3 from 'react-native-vector-icons/Octicons';
-import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import GradientCard from './GradientCard';
 import {useDispatch, useSelector} from 'react-redux';
 import { getSessionInfo } from '../store/global/globalSlice';
 import { searchContacts } from '../store/contacts/contactSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
+import Icon from '../constants/icons';
 
 
 
@@ -59,7 +55,7 @@ const Search = () => {
         style={styles.searchInput}
       />
       <TouchableOpacity onPress={()=>{handleSearch()}} style={styles.searchBtn}>
-        <Icon name="search" size={15} color={appColors.white_100} />
+        <Icon type="Ionicons" name="search" size={15} color={appColors.white_100} />
       </TouchableOpacity>
     </View>
   );
@@ -73,6 +69,7 @@ const HeaderRight = ({navigation}) => {
           alert('not in test');
         }}>
         <Icon
+        type="Ionicons"
           name="notifications-outline"
           size={27}
           color={appColors.white_100}
@@ -80,10 +77,10 @@ const HeaderRight = ({navigation}) => {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('AppTest');
+          alert('not in test');
         }}
         style={{marginLeft: 10}}>
-        <Icon name="menu" size={27} color={appColors.white_100} />
+        <Icon type="Ionicons" name="menu" size={27} color={appColors.white_100} />
       </TouchableOpacity>
     </View>
   );
@@ -149,7 +146,7 @@ const ContactDetailsHeader = ({navigation}) => {
               navigation.navigate('ContactList');
             }}
             style={styles.btn}>
-            <Icon2 name="chevron-left" color={appColors.white_100} size={18} />
+            <Icon type="Entypo" name="chevron-left" color={appColors.white_100} size={18} />
           </TouchableOpacity>
           <Text style={styles.headerText}>Contacts</Text>
         </View>
@@ -175,7 +172,8 @@ const ContactDetailsHeader = ({navigation}) => {
           onPress={() => {
             handleEmailPress(contactData.e_mail)
           }}>
-          <Icon3
+          <Icon
+            type='Octicons'
             name="mail"
             size={35}
             color={appColors.white_100}
@@ -186,7 +184,7 @@ const ContactDetailsHeader = ({navigation}) => {
             handlePhonePress(contactData.telephone_mobile)
           }}
           style={{marginLeft: 15}}>
-          <Icon4 name="phone" size={35} color={appColors.white_100} />
+          <Icon type="MaterialCommunityIcons" name="phone" size={35} color={appColors.white_100} />
         </TouchableOpacity>
       </View>
       </View>
